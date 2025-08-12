@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaderboard Test</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Real-Time Leaderboard Test</h1>
+  <script>
+    const socket = io("http://localhost:5000");
+
+    socket.on("connect", () => {
+      console.log("✅ Connected to server");
+
+      socket.emit("updateScore", {
+        username: "Bob",
+        score: Math.floor(Math.random() * 1000),
+        region: "US",
+        gameMode: "deathmatch"
+      });
+    });
+
+    socket.on("leaderboardUpdate", (data) => {
+      console.log("📊 Leaderboard:", data);
+    });
+  </script>
+</body>
+</html>
